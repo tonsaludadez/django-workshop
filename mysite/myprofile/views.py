@@ -5,6 +5,8 @@ from django.views.generic import TemplateView
 
 from myprofile.models import MyProfile
 
+from myprojects.models import MyProject
+
 def home(request):
 	me = MyProfile.objects.last()
 	
@@ -14,8 +16,8 @@ class HomepageView(TemplateView):
 	template_name = 'myprofile/home.html'
 
 	def get_context_data(self):
-		context = {}
-
+		context = super(HomepageView, self).get_context_data()
 		context['me'] = MyProfile.objects.last()
+		context['projects'] = MyProject.objects.all()
 
-		return context;
+		return context

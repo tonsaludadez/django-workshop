@@ -1,9 +1,34 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Profile Page</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'myprofile/css/home.css' %}">
+
 </head>
 <body>
-	<h1>Welcome, hello world! <br> {{ me.full_name }}</h1>
+	<h1>Welcome, hello world! 
+	{{ me.full_name }}
+	</h1>
+	<p>
+	{{ me.bio }}
+	</p>
+	<h3>See me in: </h3>
+	{% if me.github %}
+		<a href="{{me.github}}"><img src="{% static 'myprofile/img/github-img.png' %}"></a>
+	{% endif %}
+
+	{% if me.facebook %}
+		<a href="{{me.facebook}}"><img src="{% static 'myprofile/img/fb-img.png' %}"></a>
+	{% endif %}
+
+	{% for project in projects %}
+		<li>
+			<a href="{% url 'project-detail' project.pk%}">{{ project.title }}</a>
+		</li>
+	{% endfor %}
+
+	
+	
 </body>
 </html>
